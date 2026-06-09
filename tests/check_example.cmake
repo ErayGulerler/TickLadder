@@ -1,0 +1,12 @@
+execute_process(COMMAND "${PROGRAM}" "${DATA}/session.csv"
+  RESULT_VARIABLE rc OUTPUT_VARIABLE actual ERROR_VARIABLE diagnostic)
+if(NOT rc EQUAL 0)
+  message(FATAL_ERROR "Replay failed (${rc}): ${diagnostic}")
+endif()
+file(READ "${DATA}/quotes.csv" expected)
+string(REPLACE "\r\n" "\n" expected "${expected}")
+string(STRIP "${actual}" actual)
+string(STRIP "${expected}" expected)
+if(NOT actual STREQUAL expected)
+  message(FATAL_ERROR "Replay output differs from examples/quotes.csv:\n${actual}")
+endif()
