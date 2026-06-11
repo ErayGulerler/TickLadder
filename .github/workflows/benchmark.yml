@@ -1,0 +1,28 @@
+name: Benchmark the order book
+on: workflow_dispatch
+permissions:
+  contents: read
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and check both books
+        run: |
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+          cmake --build build --parallel 2
+          ctest --test-dir build --output-on-failure
+      - name: Record benchmark and environment
+        run: |
+          mkdir -p measurements
+          build/bin/book_bench > measurements/trials.csv 2> measurements/clock.txt
+          c++ --version > measurements/compiler.txt
+          lscpu > measurements/cpu.txt
+          uname -a > measurements/system.txt
+          git rev-parse HEAD > measurements/revision.txt
+          cat measurements/trials.csv
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tickladder-benchmark
+          path: measurements/
