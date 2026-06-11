@@ -33,7 +33,7 @@ Compare median throughput across the five trials for each book and tape. For tai
 
 The optimized C++20 book and replay tests passed on Windows x64 with Clang 18.1.6 via Zig 0.13.0 (`-O3 -DNDEBUG`). The tests checked every tick on both sides and matched both fields of each bid and ask across 300,000 random updates. The CLI produced the expected sample CSV and stopped on the deliberate sequence gap.
 
-All three CMake targets built from the extracted ZIP. The book tests passed under CTest. Windows application control blocked the CMake-built replay executable and the standalone benchmark. The sample comparison passed separately using the directly compiled replay executable. There is no local timing result to report. The Linux workflow is provided for collecting the first measurements and has not been dispatched.
+All three CMake targets built from a clean source tree. The book tests passed under CTest. Windows application control blocked the CMake-built replay executable and the standalone benchmark. The sample comparison passed separately using the directly compiled replay executable. There is no local timing result to report. The Linux workflow is provided for collecting the first measurements and has not been dispatched.
 
 ## Measurement boundary
 

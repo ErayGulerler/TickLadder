@@ -2,7 +2,7 @@
 
 A pricing screen needs the highest bid and the lowest ask after each change. The interesting case is a cancellation. If the best bid disappears, the next bid might be several hundred empty ticks away. Checking those ticks one at a time makes the work depend on the gap.
 
-## Walk through a cancellation
+## Example: cancelling the best bid
 
 Imagine bids at offsets 63 and 128, measured from tick 10000. Each group holds 64 offsets. Bit 63 in group 0 represents the first bid. Bit 0 in group 2 represents the second. The summary word has bits 0 and 2 set.
 
